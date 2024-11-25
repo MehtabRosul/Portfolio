@@ -35,11 +35,11 @@ const Hero = () => {
           src="https://open.spotify.com/embed/playlist/0lD8juogbXloPSoZ7PQG65?utm_source=generator&theme=0" 
           width="300" 
           height="152" 
-          style={{ border: "0" }} 
-          allowFullScreen 
+        
           allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-          loading="lazy">
-        </iframe>
+          loading="lazy"
+          style={{ border: 'none', zIndex: 5 }}
+        />
       </div>
       
 

@@ -18,8 +18,11 @@
     "react-dom": "^18.3.1",
     "react-parallax-tilt": "^1.7.241",
     "react-router-dom": "^6.8.1",
+    "react-three-fiber": "^6.0.13",
     "react-vertical-timeline-component": "^3.6.0",
-    "three": "^0.168.0"
+    "three": "^0.168.0",
+    "three-mesh-bvh": "^0.8.0",
+    "three.js": "^0.77.1"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

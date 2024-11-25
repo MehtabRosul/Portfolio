@@ -22,7 +22,7 @@
     "react-vertical-timeline-component": "^3.6.0",
     "three": "^0.168.0",
     "three-mesh-bvh": "^0.8.0",
-    "three.js": "^0.77.1"
+    "three.js": "^0.77.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import {
   Decal,
@@ -10,22 +10,8 @@ import {
 
 import CanvasLoader from "../Loader";
 
-// Example data structure for ball textures
-const ballTextures = [
-  'texture1.png',
-  'texture2.png',
-  // ... more texture URLs
-];
-
 const Ball = (props) => {
   const [decal] = useTexture([props.imgUrl]);
-
-  useEffect(() => {
-    console.log('Ball props:', props);
-    if (!props.imgUrl) {
-      console.error('Missing image URL for Ball');
-    }
-  }, [props]);
 
   return (
     <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
@@ -51,7 +37,7 @@ const Ball = (props) => {
   );
 };
 
-const BallCanvas = () => {
+const BallCanvas = ({ icon }) => {
   return (
     <Canvas
       frameloop='demand'
@@ -60,9 +46,7 @@ const BallCanvas = () => {
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls enableZoom={false} />
-        {ballTextures.map((texture, index) => (
-          <Ball key={index} imgUrl={texture} />
-        ))}
+        <Ball imgUrl={icon} />
       </Suspense>
 
       <Preload all />

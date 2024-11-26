@@ -18,7 +18,7 @@ const SpotifyEmbed = () => {
       width: "100%",  // Full width
       height: "100%", // Full height
       border: "none", // No border around the iframe
-      zIndex: 10,      // Ensure it's above other elements
+      zIndex: 5,      // Ensure it's above other elements
     },
   };
 

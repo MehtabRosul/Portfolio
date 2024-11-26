@@ -6,10 +6,10 @@ const SpotifyEmbed = () => {
       position: "relative",
       width: "200%",
       paddingBottom: "15.25%",  // 16:9 aspect ratio (for video embeds)
-      height: 0,
+      height: "30%",
       overflow: "hidden",
       maxWidth: "300px",         // Maximum width for larger screens
-      margin: "0 auto",         // Center-align horizontally
+      margin: "0",         // Center-align horizontally
     },
     iframe: {
       position: "absolute",

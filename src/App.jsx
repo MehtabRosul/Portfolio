@@ -20,6 +20,8 @@ const App = () => {
         <StarsCanvas />
         </div>
       </div>
+      <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+      <script src="https://files.bpcontent.cloud/2024/11/26/16/20241126160508-UOWXTPRS.js"></script>
     </BrowserRouter>
   );
 }

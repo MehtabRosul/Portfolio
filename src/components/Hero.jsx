@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 
 import { styles } from "../styles";
 import { ComputersCanvas } from "./canvas";
+import SpotifyEmbed from "./SpotifyEmbed"; // Import the new component
 
 const Hero = () => {
   return (
@@ -27,15 +28,8 @@ const Hero = () => {
           </p>
         </div>
 
-        {/* Spotify Embed */}
-        <iframe
-          src="https://open.spotify.com/embed/playlist/0lD8juogbXloPSoZ7PQG65?utm_source=generator&theme=0"
-          width="300"
-          height="152"
-          allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
-          loading="lazy"
-          style={{ border: "none", zIndex: 5 }}
-        />
+        {/* Use the SpotifyEmbed Component */}
+        <SpotifyEmbed />
       </div>
 
       {/* Background Canvas */}

@@ -26,17 +26,17 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
         tiltMaxAngleY={30}
         glareColor="#aaa6c3"
       >
-        <div className="bg-tertiary w-full rounded-2xl p-5 sm:w-[300px]">
+        <div className="bg-tertiary w-full rounded-2xl p-5 sm:w-[360px]">
           <div className="relative h-[230px] w-full">
             <img
               src={image}
               alt={name}
               className="h-full w-full rounded-2xl object-cover"
             />
-            <div className="card-img_hover absolute inset-0 m-3 flex justify-end">
+            <div className="absolute inset-0 flex justify-end m-3 card-img_hover">
               <div
                 onClick={() => window.open(sourceCodeLink, "_blank")}
-                className="black-gradient flex h-10 w-10 cursor-pointer items-center justify-center rounded-full"
+                className="black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer"
               >
                 <img
                   src={github}
@@ -52,7 +52,7 @@ const ProjectCard: React.FC<{ index: number } & TProject> = ({
           </div>
           <div className="mt-4 flex flex-wrap gap-2">
             {tags.map((tag) => (
-              <p key={tag.name} className={`text-[14px] ${tag.color}`}>
+              <p key={tag.name} className={`text-[15px] ${tag.color}`}>
                 #{tag.name}
               </p>
             ))}

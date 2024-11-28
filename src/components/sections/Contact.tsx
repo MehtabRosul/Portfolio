@@ -38,16 +38,16 @@ const Contact = () => {
 
     emailjs
       .send(
-        emailjsConfig.serviceId,
-        emailjsConfig.templateId,
+        'service_830l88b',
+        'template_juhv3sl',
         {
-          form_name: form.name,
-          to_name: config.html.fullName,
+          from_name: form.name,
+          to_name: "Rosul.",
           from_email: form.email,
-          to_email: config.html.email,
+          to_email: "mehtabrosul10@gmail.com",
           message: form.message,
         },
-        emailjsConfig.accessToken
+        '6Ss5B0ct1y8AFzbMZ'
       )
       .then(
         () => {

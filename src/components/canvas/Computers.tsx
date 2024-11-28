@@ -9,20 +9,21 @@ const Computers: React.FC<{ isMobile: boolean }> = ({ isMobile }) => {
 
   return (
     <mesh>
-      <hemisphereLight intensity={0.15} groundColor="black" />
+      <hemisphereLight intensity={10} groundColor="black" />
+      <pointLight intensity={10} />
       <spotLight
-        position={[-20, 50, 10]}
+        position={[5, 50, 1]}
         angle={0.12}
         penumbra={1}
         intensity={1}
         castShadow
         shadow-mapSize={1024}
       />
-      <pointLight intensity={1} />
+      
       <primitive
         object={computer.scene}
         scale={isMobile ? 0.7 : 0.75}
-        position={isMobile ? [0, -3, -2.2] : [0, -4.25, -1.5]}
+        position={isMobile ? [-1, -3, -2.2] : [-1, -3.55, -1.5]}
         rotation={[-0.01, -0.2, -0.1]}
       />
     </mesh>
@@ -34,7 +35,7 @@ const ComputersCanvas = () => {
 
   useEffect(() => {
     // Add a listener for changes to the screen size
-    const mediaQuery = window.matchMedia("(max-width: 500px)");
+    const mediaQuery = window.matchMedia("(max-width: 100px)");
 
     // Set the initial value of the `isMobile` state variable
     setIsMobile(mediaQuery.matches);

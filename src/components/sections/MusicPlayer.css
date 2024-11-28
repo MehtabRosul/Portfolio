@@ -1,0 +1,96 @@
+.music-player {
+  width: 300px;
+  background-color: rgba(255, 255, 255, 0); /* Transparent background */
+  backdrop-filter: blur(10px); /* Add blur effect for a glassmorphism look */
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 10px;
+}
+
+.play-pause {
+  padding: 8px 12px;
+  font-size: 14px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.play-pause:hover {
+  background-color: #0056b3;
+}
+
+.control-button {
+  padding: 8px;
+  color: #fff;
+  background-color: #6c757d;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.control-button:hover {
+  background-color: #5a6268;
+}
+
+.seeker {
+  width: 100%;
+  margin-top: 10px;
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+    /* Music player container styling for mobile view */
+    .music-player-container {
+        display: block !important;
+        position: relative !important;
+        top: 20px !important;
+        left: 80px !important;
+        transform: translateX(-50%) !important;
+        z-index: 10;
+    }
+
+    /* Music player styling for mobile */
+    .music-player {
+        width: 0px !important;
+        height: 10px !important;
+        max-width: 10px !important;
+        background-color: transparent !important;
+        border: none !important;
+        box-shadow: none !important;
+        display: left !important;
+    }
+
+    /* Controls styling */
+    .controls {
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        width: 80% !important;
+        padding: 3px !important;
+        gap: 8px !important;
+    }
+
+    /* Play/Pause button moved slightly up and right */
+    .play-pause {
+        font-size: 15px !important;
+        padding: 5px !important;
+        display: block !important;
+        margin-bottom: 60px !important; /* Move up slightly */
+        margin-left: 135px !important; /* Move to the right */
+        transform: translateY(-10px) !important; /* Adjust upwards */
+    }
+
+    /* Hide other controls */
+    .control-button, .seeker {
+        display: none !important;
+    }
+}
+

@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
-
 import { styles } from "../../constants/styles";
 import { ComputersCanvas } from "../canvas";
 import { config } from "../../constants/config";
+import MusicPlayer from './MusicPlayer';
+
 
 const Hero = () => {
   return (
-    <section className={`relative mx-auto h-screen w-full`}>
+    <section className="relative mx-auto h-screen w-full">
       <div
         className={`absolute inset-0 top-[120px] mx-auto max-w-7xl ${styles.paddingX} flex flex-row items-start gap-5`}
       >
@@ -17,17 +18,20 @@ const Hero = () => {
 
         <div>
           <h1 className={`${styles.heroHeadText} text-white`}>
-            Hi, I'm <span className="text-[#915EFF]">{config.hero.name}</span>
+            Hi, I'm <span className="text-[#a176ff]">{config.hero.name}</span>
           </h1>
-          <p className={`${styles.heroSubText} text-white-100 mt-2`}>
+          <p className={`${styles.heroSubText} text-[#34ffd3] mt-2`}>
             {config.hero.p[0]} <br className="hidden sm:block" />
             {config.hero.p[1]}
           </p>
         </div>
       </div>
-
+      
+      {/* Music Player positioned at top-right below navbar */}
+      <div className="absolute top-[120px] right-[100px] z-10">
+        <MusicPlayer />
+      </div>
       <ComputersCanvas />
-
       <div className="xs:bottom-10 absolute bottom-32 flex w-full items-center justify-center">
         <a href="#about">
           <div className="border-secondary flex h-[64px] w-[35px] items-start justify-center rounded-3xl border-4 p-2">

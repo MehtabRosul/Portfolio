@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import emailjs from "emailjs-com";
 
 import { EarthCanvas } from "../canvas";
 import { SectionWrapper } from "../../hoc";
@@ -23,16 +24,15 @@ const tooltipText = [
 ];
 
 const Contact = () => {
-  const formRef = useRef<React.LegacyRef<HTMLFormElement> | undefined>();
+  const formRef = useRef<HTMLFormElement>(null);
   const [form, setForm] = useState(INITIAL_STATE);
   const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0); // Rating state
   const [hasRated, setHasRated] = useState(false); // Track if rated
 
   const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | undefined
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    if (e === undefined) return;
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
   };
@@ -59,13 +59,12 @@ const Contact = () => {
         closeOnClick: true,
         pauseOnHover: false,
         draggable: true,
-        icon: cosmicIcons[index],
+        icon: <span style={{ fontSize: "2rem" }}>{cosmicIcons[index]}</span>,
       }
     );
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement> | undefined) => {
-    if (e === undefined) return;
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
@@ -89,10 +88,9 @@ const Contact = () => {
 
           setForm(INITIAL_STATE);
         },
-        (error) => {
+        (emailError: unknown) => {
           setLoading(false);
-
-          console.log(error);
+          console.error(emailError);
           alert("Something went wrong.");
         }
       );
@@ -189,23 +187,18 @@ const Contact = () => {
           })}
           <button
             type="submit"
-            className="bg-tertiary shadow-primary w-fit rounded-xl px-8 py-3 font-bold text-white shadow-md outline-none"
+            className="bg-tertiary shadow-primary w-fit rounded-xl px-8 py-3 font-bold text-white outline-none hover:bg-gray-700"
           >
             {loading ? "Sending..." : "Send"}
           </button>
         </form>
       </motion.div>
-
-      {/* 3D Object Section */}
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
-        className="h-[350px] md:h-[550px] xl:h-auto xl:flex-1"
-        style={{ overflow: "visible" }}
+        className="flex flex-1 items-center justify-center"
       >
         <EarthCanvas />
       </motion.div>
-
-      {/* Toast Notification Container */}
       <ToastContainer />
     </div>
   );

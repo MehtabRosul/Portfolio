@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
-import emailjs from "@emailjs/browser";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import { EarthCanvas } from "../canvas";
 import { SectionWrapper } from "../../hoc";
@@ -12,9 +13,8 @@ const INITIAL_STATE = Object.fromEntries(
   Object.keys(config.contact.form).map((input) => [input, ""])
 );
 
-// Unique emojis for rating
 const cosmicIcons = ["🌑", "🌓", "🌕", "🌟", "🧑🏽‍🚀"]; // Unique cosmic rating icons
-const uniqueMessages = [
+const tooltipText = [
   "Not Great",
   "Needs Improvement",
   "Good Job",
@@ -27,7 +27,7 @@ const Contact = () => {
   const [form, setForm] = useState(INITIAL_STATE);
   const [loading, setLoading] = useState(false);
   const [rating, setRating] = useState(0); // Rating state
-  const [isRated, setIsRated] = useState(false); // Track if already rated
+  const [hasRated, setHasRated] = useState(false); // Track if rated
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | undefined
@@ -35,6 +35,33 @@ const Contact = () => {
     if (e === undefined) return;
     const { name, value } = e.target;
     setForm({ ...form, [name]: value });
+  };
+
+  const handleRatingClick = (index: number) => {
+    if (hasRated) return; // Prevent further rating
+
+    setRating(index + 1);
+    setHasRated(true);
+
+    // Trigger a custom toast notification
+    toast(
+      <div className="flex flex-col items-center">
+        <h3 className="font-bold text-lg">Thank You!</h3>
+        <p>Your rating: {tooltipText[index]}</p>
+        <div style={{ fontSize: "2rem" }}>{cosmicIcons[index]}</div>
+      </div>,
+      {
+        className: "bg-cyan-600 text-white",
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: true,
+        closeButton: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        icon: cosmicIcons[index],
+      }
+    );
   };
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement> | undefined) => {
@@ -59,10 +86,12 @@ const Contact = () => {
         () => {
           setLoading(false);
           alert("Thank you. I will get back to you as soon as possible.");
+
           setForm(INITIAL_STATE);
         },
         (error) => {
           setLoading(false);
+
           console.log(error);
           alert("Something went wrong.");
         }
@@ -70,35 +99,43 @@ const Contact = () => {
   };
 
   return (
-    <div
-      className={`flex flex-col-reverse gap-10 overflow-hidden xl:mt-12 xl:flex-row`}
-    >
+    <div className="flex flex-col-reverse gap-10 overflow-hidden xl:mt-12 xl:flex-row">
       <motion.div
         variants={slideIn("left", "tween", 0.2, 1)}
         className="bg-black-100 flex-[0.75] rounded-2xl p-8"
+        style={{ minWidth: "350px" }}
       >
-        {/* Rating System */}
+        {/* Unique Cosmic Rating System */}
         <div className="mb-8 flex flex-col items-center text-center">
           <h3 className="text-xl font-bold text-white mb-4">
             Rate this portfolio
           </h3>
           <div className="relative flex justify-center items-center">
-            {uniqueIcons.map((icon, index) => (
+            {cosmicIcons.map((icon, index) => (
               <motion.div
                 key={index}
-                className={`relative mx-2 cursor-pointer ${
-                  isRated ? "pointer-events-none" : ""
+                className={`relative mx-2 ${
+                  hasRated ? "cursor-default" : "cursor-pointer"
                 }`}
-                onClick={() => {
-                  setRating(index + 1);
-                  setIsRated(true);
-                }}
-                whileHover={!isRated ? { scale: 1.3, rotate: 360 } : {}}
-                animate={{
-                  scale: rating === index + 1 ? 1.5 : 1,
-                  filter: rating === index + 1 ? "brightness(1.2)" : "none",
-                  transition: { type: "spring", stiffness: 200 },
-                }}
+                onClick={() => handleRatingClick(index)}
+                whileHover={
+                  !hasRated
+                    ? {
+                        scale: 1.4,
+                        rotate: 360,
+                        transition: { duration: 0.5 },
+                      }
+                    : {}
+                }
+                animate={
+                  hasRated
+                    ? {}
+                    : {
+                        scale: rating === index + 1 ? 1.5 : 1,
+                        filter: rating === index + 1 ? "brightness(1.2)" : "none",
+                        transition: { type: "spring", stiffness: 200 },
+                      }
+                }
               >
                 <span
                   style={{
@@ -108,16 +145,6 @@ const Contact = () => {
                 >
                   {icon}
                 </span>
-                {rating === index + 1 && (
-                  <motion.div
-                    className="absolute top-[-20px] left-[50%] translate-x-[-50%] text-xs bg-white text-black px-2 py-1 rounded-lg shadow-lg"
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                  >
-                    {uniqueMessages[index]}
-                  </motion.div>
-                )}
               </motion.div>
             ))}
           </div>
@@ -128,7 +155,7 @@ const Contact = () => {
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5 }}
             >
-              {uniqueIcons[rating - 1]} {uniqueMessages[rating - 1]}
+              {cosmicIcons[rating - 1]} {tooltipText[rating - 1]}
             </motion.div>
           )}
         </div>
@@ -136,7 +163,6 @@ const Contact = () => {
         {/* Contact Form */}
         <Header useMotion={false} {...config.contact} />
         <form
-          // @ts-expect-error
           ref={formRef}
           onSubmit={handleSubmit}
           className="mt-12 flex flex-col gap-8"
@@ -170,12 +196,17 @@ const Contact = () => {
         </form>
       </motion.div>
 
+      {/* 3D Object Section */}
       <motion.div
         variants={slideIn("right", "tween", 0.2, 1)}
         className="h-[350px] md:h-[550px] xl:h-auto xl:flex-1"
+        style={{ overflow: "visible" }}
       >
         <EarthCanvas />
       </motion.div>
+
+      {/* Toast Notification Container */}
+      <ToastContainer />
     </div>
   );
 };
